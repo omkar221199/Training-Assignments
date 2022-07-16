@@ -3,29 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ShoppingCartLib;
 
-namespace AmazonApp
+namespace ShoppingCartLib
 {
-    internal class Program
+    public class Product
     {
-        static void Main(string[] args)
+        public string ProductName { get; set; }
+        public decimal Price { get; set; }
+        public int Quantity { get; set; }
+
+        public Product()
         {
-            Console.WriteLine("Enter product name: ");
-            string productName = Console.ReadLine();
 
-            Console.WriteLine("Enter price: ");
-            decimal price = Convert.ToDecimal(Console.ReadLine());
+        }
+        public Product(string productName, decimal price, int quantity)
+        {
+            ProductName = productName;
+            Price = price;
+            Quantity = quantity;
+        }
 
-            Console.WriteLine("Enter quantity: ");
-            int quantity = Convert.ToInt32(Console.ReadLine());
+        public decimal GetProductCost()
+        {
+            return Price * Quantity;
+        }
 
-            Product product = new Product(productName, price, quantity);
-            Console.WriteLine(product);
-            Console.WriteLine("Overall cost is: " + product.GetProductCost());
-
-            Console.ReadLine();
-
+        public override string ToString()
+        {
+            return String.Format($"Product Name is: {ProductName}\nPrice is: {Price}\nQuantity is: {Quantity}");
         }
     }
 }
