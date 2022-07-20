@@ -31,11 +31,13 @@ namespace HRLib
         {
             Basic = basic;
             Designation = designation;
+            
         }
 
         public override double CalculateSalary()
         {
             double hra, conv, pf, netSalary;
+            
             if (Basic >= 30000)
             {
                 hra = 0.3 * Basic;
@@ -60,6 +62,11 @@ namespace HRLib
                 netSalary = Basic + hra + conv - pf;
                 return netSalary;
             }
+        }
+
+        public override string ToString()
+        {
+            return base.ToString() + $"\nDesignation is {Designation}\nNet Salary is {CalculateSalary()}";
         }
     }
 }
