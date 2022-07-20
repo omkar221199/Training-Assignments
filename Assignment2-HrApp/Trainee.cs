@@ -31,11 +31,17 @@ namespace HRLib
         {
             NoOfDays = noOfDays;
             RatePerDay = ratePerDay;
+            
         }
 
         public override double CalculateSalary()
         {
             return NoOfDays * RatePerDay;   
+        }
+
+        public override string ToString()
+        {
+            return base.ToString() + $"\nNo of Days is {NoOfDays}\nRate per Day is {RatePerDay}\nNet Salary is {CalculateSalary()}";
         }
     }
 }
