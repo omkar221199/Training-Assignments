@@ -10,6 +10,7 @@ namespace HRLib
     {
         private string name;
 
+        public static int EmpCounter=1;
         public string Name
         {
             get { return name; }
@@ -23,6 +24,8 @@ namespace HRLib
             set { address = value; }
         }
 
+        public int EmpID { get; set; }
+
         public Employee()
         {
 
@@ -31,9 +34,14 @@ namespace HRLib
         public Employee(string name, string address)
         {
             Name = name;
-            Address = address;    
+            Address = address;
+            EmpID = EmpCounter++;
         }
 
+        public override string ToString()
+        {
+            return String.Format($"Name is: {Name}\nAddress is: {Address}");
+        }
         public abstract double CalculateSalary();
     }
 }
