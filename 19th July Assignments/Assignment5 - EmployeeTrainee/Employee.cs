@@ -10,8 +10,7 @@ namespace HRLib
     {
         private string name;
 
-        public int EmpNo { get; private set; }
-
+        public static int EmpCounter=1;
         public string Name
         {
             get { return name; }
@@ -25,16 +24,18 @@ namespace HRLib
             set { address = value; }
         }
 
+        public int EmpID { get; set; }
+
         public Employee()
         {
 
         }
 
-        public Employee(int empno, string name, string address)
+        public Employee(string name, string address)
         {
-            EmpNo = empno;
             Name = name;
-            Address = address;    
+            Address = address;
+            EmpID = EmpCounter++;
         }
 
         public override string ToString()
