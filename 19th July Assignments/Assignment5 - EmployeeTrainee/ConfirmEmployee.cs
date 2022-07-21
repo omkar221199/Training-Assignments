@@ -27,19 +27,17 @@ namespace HRLib
 
         }
 
-        public ConfirmEmployee(int empno, string name, string address, double basic, string designation) : base(empno, name, address)
+        public ConfirmEmployee(string name, string address, double basic, string designation) : base(name, address)
         {
             Basic = basic;
             Designation = designation;
+            
         }
 
         public override double CalculateSalary()
         {
             double hra, conv, pf, netSalary;
-            if (basic < 5000)
-            {
-                throw new MinimumBasicSalaryException("Minimum basic salary must be 5000.");
-            }
+            
             if (Basic >= 30000)
             {
                 hra = 0.3 * Basic;
