@@ -11,11 +11,9 @@ namespace HrApp
     {
         static void Main(string[] args)
         {
-            int choice;
-            int confirmEmployeeNo = 1;
-            int traineeNo = 1001;
-            List<ConfirmEmployee> confirmEmployees = new List<ConfirmEmployee>();
-            List<Trainee> trainee = new List<Trainee>();
+            int choice;         
+            List<Employee> employees = new List<Employee>();
+
             do
             {
                 Console.WriteLine("\n1.Display All Employees\n2.Insert Confirm Employee\n" +
@@ -25,14 +23,11 @@ namespace HrApp
                 switch (choice)
                 {
                     case 1:
-                        for (int i = 0; i < confirmEmployees.Count; i++)
+                        for (int i = 0; i < employees.Count; i++)
                         {
-                            Console.WriteLine($"\nName: {confirmEmployees[i].Name} Address: {confirmEmployees[i].Address} Salary: {confirmEmployees[i].CalculateSalary()} Designation: {confirmEmployees[i].Designation}");
+                            Console.WriteLine($"\nName: {employees[i].Name} Address: {employees[i].Address} Salary: {employees[i].CalculateSalary()} ");
                         }
-                        for (int i = 0; i < trainee.Count; i++)
-                        {
-                            Console.WriteLine($"\nName: {trainee[i].Name} Address: {trainee[i].Address} Salary: {trainee[i].CalculateSalary()} ");
-                        }
+                        
                         break;
 
                     case 2:
@@ -44,10 +39,14 @@ namespace HrApp
                         try
                         {
                             double basic = Convert.ToDouble(Console.ReadLine());
+                            if (basic < 5000)
+                            {
+                                throw new MinimumBasicSalaryException("Minimum basic salary must be 5000.");
+                            }
                             Console.WriteLine("Enter employee designation: ");
                             string designation = Console.ReadLine();
-                            confirmEmployees.Add(new ConfirmEmployee(confirmEmployeeNo, name, address, basic, designation));
-                            confirmEmployeeNo++;
+                            employees.Add(new ConfirmEmployee(name, address, basic, designation));
+                            
                         }
                         catch (MinimumBasicSalaryException ex)
                         {
@@ -64,68 +63,47 @@ namespace HrApp
                         int noOfDays = Convert.ToInt32(Console.ReadLine());
                         Console.WriteLine("Enter trainee's rate per day: ");
                         double ratePerDay = Convert.ToDouble(Console.ReadLine());
-                        trainee.Add(new Trainee(traineeNo, traineeName, traineeAddress, noOfDays, ratePerDay));
-                        traineeNo++;
+                        employees.Add(new Trainee(traineeName, traineeAddress, noOfDays, ratePerDay));
                         break;
 
                     case 4:
                         Console.WriteLine("\nEnter Employee No: ");
                         int empNo = Convert.ToInt32(Console.ReadLine());
-                        if (empNo < 1000)
+                        bool flag=false;
+                        for (int i = 0; i < employees.Count; i++)
                         {
-                            for (int i = 0; i <= empNo - 1; i++)
+                            
+                            if (employees[i].EmpID == empNo)
                             {
-                                if (confirmEmployees[i].EmpNo == empNo)
-                                {
-                                    confirmEmployees.Remove(confirmEmployees[i]);
-                                    Console.WriteLine("Record Deleted...");
-                                }
-                                else
-                                {
-                                    Console.WriteLine("There is no employee having employee no {0}", empNo);
-                                }
+                                flag = true;
+                                employees.Remove(employees[i]);
+                                Console.WriteLine("Record Deleted...");
+                                break;
                             }
+                            
                         }
-                        else
-                        {
-                            for (int i = 0; i <= empNo - 1001; i++)
-                            {
-                                if (trainee[i].EmpNo == empNo)
-                                {
-                                    trainee.Remove(trainee[i]);
-                                    Console.WriteLine("Record Deleted...");
-                                }
-                                else
-                                {
-                                    Console.WriteLine("There is no trainee having trainee no {0}", empNo);
-                                }
-                            }
-                        }
-
+                        if (!flag) 
+                        { Console.WriteLine("There is no record with employee no {0}", empNo); }
                         break;
 
                     case 5:
                         Console.WriteLine("\nEnter Employee No: ");
                         int empNumber = Convert.ToInt32(Console.ReadLine());
-                        if (1 <= empNumber && empNumber <= 1000)
+                        bool flag1 = true;
+                        for (int i = 0; i < employees.Count; i++)
                         {
-                            foreach (var ce in confirmEmployees)
+                            
+                            if (employees[i].EmpID == empNumber)
                             {
-                                if (ce.EmpNo == empNumber)
-                                {
-                                    Console.WriteLine(ce.ToString());
-                                }
+                                flag1 = false;
+                                Console.WriteLine(employees[i]);
+                                break;
                             }
+
                         }
-                        else
+                        if (flag1)
                         {
-                            foreach (var tr in trainee)
-                            {
-                                if (tr.EmpNo == empNumber)
-                                {
-                                    Console.WriteLine(tr.ToString());
-                                }
-                            }
+                            Console.WriteLine("There is no record with employee no {0}", empNumber);
                         }
                         break;
                 }
