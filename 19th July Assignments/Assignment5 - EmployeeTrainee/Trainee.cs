@@ -27,10 +27,11 @@ namespace HRLib
 
         }
 
-        public Trainee(int traineeNo, string name, string address, int noOfDays, double ratePerDay): base(traineeNo, name, address)
+        public Trainee(string name, string address, int noOfDays, double ratePerDay): base(name, address)
         {
             NoOfDays = noOfDays;
             RatePerDay = ratePerDay;
+            
         }
 
         public override double CalculateSalary()
