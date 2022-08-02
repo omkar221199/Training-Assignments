@@ -28,7 +28,7 @@ namespace WinFormAppDB
             user.Password = tbPassword.Text;
             try
             {
-                bool result = userDataStore.ValidateUser(user.Username, user.Password);
+                bool result = userDataStore.ValidateUser(user);
                 if (result == true)
                 {
                     MessageBox.Show("Login Successful");
