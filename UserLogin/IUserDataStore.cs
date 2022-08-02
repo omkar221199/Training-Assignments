@@ -8,6 +8,6 @@ namespace DataDBLib
 {
     internal interface IUserDataStore
     {
-        bool ValidateUser(string Username, string Password);
+        bool ValidateUser(User user);
     }
 }
