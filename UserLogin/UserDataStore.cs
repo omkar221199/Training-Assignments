@@ -19,19 +19,19 @@ namespace DataDBLib
             sqlConnection = new SqlConnection(connectionString);
         }
 
-        public bool ValidateUser(string Username, string Password)
+        public bool ValidateUser(User user)
         {
-            
+                
                 if (sqlConnection.State == ConnectionState.Closed)
                 {
                     sqlConnection.Open();
                 }
                 string sql = "SELECT * FROM USERDATA WHERE USERNAME=@username AND PASSWORD=@password";
                 SqlCommand cmd = new SqlCommand(sql, sqlConnection);
-                cmd.Parameters.AddWithValue("username", Username);
-                cmd.Parameters.AddWithValue("password", Password);
+                cmd.Parameters.AddWithValue("username", user.Username);
+                cmd.Parameters.AddWithValue("password", user.Password);
                 sqlDataReader = cmd.ExecuteReader();
-                User user = null;
+                
                 if (sqlDataReader.Read())
                 {
                     user = new User();
